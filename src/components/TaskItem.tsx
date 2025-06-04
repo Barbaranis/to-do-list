@@ -1,5 +1,12 @@
 import React, { useState } from 'react';
-import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  Pressable,
+  Alert,
+} from 'react-native';
 import { COLORS, SIZES } from '../styles/global';
 
 
@@ -18,15 +25,31 @@ const TaskItem = ({ task, onDelete }: TaskItemProps) => {
   };
 
 
+  const confirmDelete = () => {
+    Alert.alert(
+      'Confirmation',
+      'Tu es sûre de vouloir supprimer cette tâche ?',
+      [
+        { text: 'Annuler', style: 'cancel' },
+        { text: 'Supprimer', style: 'destructive', onPress: onDelete },
+      ],
+      { cancelable: true }
+    );
+  };
+
+
   return (
-    <TouchableOpacity onPress={toggleDone} onLongPress={onDelete}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={toggleDone} style={styles.taskContent}>
         <View style={[styles.checkbox, done && styles.checkedBox]} />
-        <Text style={[styles.text, done && styles.doneText]}>
-          {task}
-        </Text>
-      </View>
-    </TouchableOpacity>
+        <Text style={[styles.text, done && styles.doneText]}>{task}</Text>
+      </TouchableOpacity>
+
+
+      <Pressable onPress={confirmDelete} style={styles.deleteButton}>
+        <Text style={styles.deleteText}>🗑️</Text>
+      </Pressable>
+    </View>
   );
 };
 
@@ -41,6 +64,12 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: SIZES.radius,
     elevation: 1,
+    justifyContent: 'space-between',
+  },
+  taskContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
   },
   checkbox: {
     width: 20,
@@ -56,18 +85,23 @@ const styles = StyleSheet.create({
   text: {
     fontSize: SIZES.font + 2,
     color: COLORS.secondary,
+    flexShrink: 1,
   },
   doneText: {
     textDecorationLine: 'line-through',
     color: COLORS.grey,
   },
+  deleteButton: {
+    marginLeft: SIZES.base,
+    padding: 4,
+  },
+  deleteText: {
+    fontSize: 18,
+  },
 });
 
 
 export default TaskItem;
-
-
-
 
 
 

@@ -1,21 +1,33 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet, Keyboard } from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Keyboard,
+} from 'react-native';
 import { COLORS, SIZES } from '../styles/global';
+
 
 type TaskInputProps = {
   onAddTask: (task: string) => void;
 };
 
+
 const TaskInput = ({ onAddTask }: TaskInputProps) => {
   const [input, setInput] = useState('');
 
+
   const handleAdd = () => {
-    if (input.trim() !== '') {
-      onAddTask(input);
+    const trimmed = input.trim();
+    if (trimmed !== '') {
+      onAddTask(trimmed);
       setInput('');
       Keyboard.dismiss();
     }
   };
+
 
   return (
     <View style={styles.container}>
@@ -25,11 +37,16 @@ const TaskInput = ({ onAddTask }: TaskInputProps) => {
         placeholderTextColor={COLORS.grey}
         value={input}
         onChangeText={setInput}
+        returnKeyType="done"
+        onSubmitEditing={handleAdd}
       />
-      <Button title="Ajouter" onPress={handleAdd} color={COLORS.primary} />
+      <TouchableOpacity style={styles.button} onPress={handleAdd}>
+        <Text style={styles.buttonText}>Ajouter</Text>
+      </TouchableOpacity>
     </View>
   );
 };
+
 
 const styles = StyleSheet.create({
   container: {
@@ -37,7 +54,6 @@ const styles = StyleSheet.create({
     marginHorizontal: SIZES.padding,
     marginVertical: SIZES.base * 2,
     alignItems: 'center',
-    gap: 10,
   },
   input: {
     flex: 1,
@@ -48,8 +64,25 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     fontSize: SIZES.font,
     color: COLORS.secondary,
+    marginRight: SIZES.base,
+  },
+  button: {
+    backgroundColor: COLORS.primary,
+    paddingVertical: SIZES.base * 1.2,
+    paddingHorizontal: SIZES.base * 2,
+    borderRadius: SIZES.radius,
+  },
+  buttonText: {
+    color: COLORS.white,
+    fontWeight: 'bold',
+    fontSize: SIZES.font,
   },
 });
 
+
 export default TaskInput;
+
+
+
+
 
