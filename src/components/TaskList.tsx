@@ -4,20 +4,30 @@ import TaskItem from './TaskItem';
 import { SIZES } from '../styles/global';
 
 
-type TaskListProps = {
-  tasks: string[];
-  onDeleteTask: (index: number) => void;
+type Task = {
+  id: string;
+  titre: string;
+  terminee: boolean;
 };
 
 
-const TaskList = ({ tasks, onDeleteTask }: TaskListProps) => {
+type TaskListProps = {
+  tasks: Task[];
+};
+
+
+const TaskList = ({ tasks }: TaskListProps) => {
   return (
     <View style={styles.container}>
       <FlatList
         data={tasks}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
-          <TaskItem task={item} onDelete={() => onDeleteTask(index)} />
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TaskItem
+            id={item.id}
+            titre={item.titre}
+            terminee={item.terminee}
+          />
         )}
         contentContainerStyle={styles.list}
       />
@@ -38,8 +48,6 @@ const styles = StyleSheet.create({
 
 
 export default TaskList;
-
-
 
 
 

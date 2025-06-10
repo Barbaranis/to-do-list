@@ -77,3 +77,6 @@ coverage/
 *.crash
 *.pid
 
+# .gitignore
+src/firebase/firebaseConfig.js
+

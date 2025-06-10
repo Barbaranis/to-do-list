@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -8,20 +8,25 @@ import {
   Alert,
 } from 'react-native';
 import { COLORS, SIZES } from '../styles/global';
+import { database } from '../services/firebase';
+import { ref, update, remove } from 'firebase/database';
 
 
 type TaskItemProps = {
-  task: string;
-  onDelete: () => void;
+  id: string;
+  titre: string;
+  terminee: boolean;
 };
 
 
-const TaskItem = ({ task, onDelete }: TaskItemProps) => {
-  const [done, setDone] = useState(false);
-
-
-  const toggleDone = () => {
-    setDone(!done);
+const TaskItem = ({ id, titre, terminee }: TaskItemProps) => {
+  const toggleDone = async () => {
+    try {
+      const tacheRef = ref(database, `taches/${id}`);
+      await update(tacheRef, { terminee: !terminee });
+    } catch (err) {
+      console.error('❌ Erreur mise à jour Firebase :', err);
+    }
   };
 
 
@@ -31,7 +36,18 @@ const TaskItem = ({ task, onDelete }: TaskItemProps) => {
       'Tu es sûre de vouloir supprimer cette tâche ?',
       [
         { text: 'Annuler', style: 'cancel' },
-        { text: 'Supprimer', style: 'destructive', onPress: onDelete },
+        {
+          text: 'Supprimer',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              const tacheRef = ref(database, `taches/${id}`);
+              await remove(tacheRef);
+            } catch (err) {
+              console.error('❌ Erreur suppression Firebase :', err);
+            }
+          },
+        },
       ],
       { cancelable: true }
     );
@@ -41,8 +57,8 @@ const TaskItem = ({ task, onDelete }: TaskItemProps) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={toggleDone} style={styles.taskContent}>
-        <View style={[styles.checkbox, done && styles.checkedBox]} />
-        <Text style={[styles.text, done && styles.doneText]}>{task}</Text>
+        <View style={[styles.checkbox, terminee && styles.checkedBox]} />
+        <Text style={[styles.text, terminee && styles.doneText]}>{titre}</Text>
       </TouchableOpacity>
 
 

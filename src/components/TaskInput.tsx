@@ -8,23 +8,39 @@ import {
   Keyboard,
 } from 'react-native';
 import { COLORS, SIZES } from '../styles/global';
+import { database } from '../services/firebase';
+import { ref, push } from 'firebase/database';
 
 
 type TaskInputProps = {
-  onAddTask: (task: string) => void;
+  userId: string;
 };
 
 
-const TaskInput = ({ onAddTask }: TaskInputProps) => {
+const TaskInput = ({ userId }: TaskInputProps) => {
   const [input, setInput] = useState('');
 
 
-  const handleAdd = () => {
+  const handleAdd = async () => {
     const trimmed = input.trim();
-    if (trimmed !== '') {
-      onAddTask(trimmed);
+    if (!trimmed || !userId) {return;}
+
+
+    const nouvelleTache = {
+      titre: trimmed,
+      terminee: false,
+      createdAt: Date.now(),
+      userId: userId,
+    };
+
+
+    try {
+      const tachesRef = ref(database, 'taches/');
+      await push(tachesRef, nouvelleTache);
       setInput('');
       Keyboard.dismiss();
+    } catch (err) {
+      console.error('❌ Erreur Firebase :', err);
     }
   };
 
@@ -81,6 +97,8 @@ const styles = StyleSheet.create({
 
 
 export default TaskInput;
+
+
 
 
 
