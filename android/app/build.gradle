@@ -77,9 +77,15 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
+<<<<<<< HEAD
     namespace "com.petitpasv3"
     defaultConfig {
         applicationId "com.petitpasv3"
+=======
+    namespace "com.petitpas"
+    defaultConfig {
+        applicationId "com.petitpas"
+>>>>>>> b6a3167d22ddf2d3419ddae27a5d9080a7138809
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

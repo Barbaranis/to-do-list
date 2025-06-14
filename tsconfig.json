@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "module": "ESNext",
+<<<<<<< HEAD
     "lib": ["esnext"],
     "jsx": "react-native",
     "strict": true,
@@ -25,3 +26,17 @@
   "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js"]
 }
 
+=======
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "jsx": "react-native"
+  },
+  "exclude": ["node_modules"]
+}
+>>>>>>> b6a3167d22ddf2d3419ddae27a5d9080a7138809

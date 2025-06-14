@@ -1,3 +1,7 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">PetitPasV3</string>
+=======
+    <string name="app_name">PetitPas</string>
+>>>>>>> b6a3167d22ddf2d3419ddae27a5d9080a7138809
 </resources>

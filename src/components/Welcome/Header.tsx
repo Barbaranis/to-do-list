@@ -18,7 +18,7 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'rgba(184, 107, 165, 0.54)', // 🎨 fond plus doux, rose pastel
+    backgroundColor: 'rgba(184, 107, 165, 0.54)', 
     padding: 40,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,

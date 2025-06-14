@@ -14,7 +14,11 @@ if linkage != nil
   use_frameworks! :linkage => linkage.to_sym
 end
 
+<<<<<<< HEAD
 target 'PetitPasV3' do
+=======
+target 'PetitPas' do
+>>>>>>> b6a3167d22ddf2d3419ddae27a5d9080a7138809
   config = use_native_modules!
 
   use_react_native!(
