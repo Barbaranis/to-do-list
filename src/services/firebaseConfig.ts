@@ -1,4 +1,4 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
 
@@ -7,16 +7,17 @@ const firebaseConfig = {
   authDomain: "petitpas-54b93.firebaseapp.com",
   databaseURL: "https://petitpas-54b93-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "petitpas-54b93",
-  storageBucket: "petitpas-54b93.appspot.com",  // Correction important (pas .firebasestorage.app mais .appspot.com)
+  storageBucket: "petitpas-54b93.appspot.com",
   messagingSenderId: "326765926412",
   appId: "1:326765926412:web:196eb3552afeb986987629",
-  measurementId: "G-HB4P7Z7T8F"  // facultatif pour React Native, tu peux même l’enlever
+  measurementId: "G-HB4P7Z7T8F"
 };
 
 
-// On initialise l’app Firebase
-const app = initializeApp(firebaseConfig);
+// On vérifie si Firebase est déjà initialisé
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 
 // On exporte l’auth qu’on utilisera dans Login et Register
 export const auth = getAuth(app);
+

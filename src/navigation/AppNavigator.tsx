@@ -9,7 +9,6 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ProfileScreen from '../screens/ProfilScreen';
 import AboutScreen from '../screens/AboutScreen';
 import ContactScreen from '../screens/ContactScreen';
-import AuthStackNavigator from './AuthStackNavigator';
 
 
 const Drawer = createDrawerNavigator();
@@ -20,10 +19,10 @@ function CustomDrawerContent(props: any) {
     <DrawerContentScrollView {...props} contentContainerStyle={styles.drawerContainer}>
       <View style={styles.header}>
         <Image
-          source={{ uri: 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}
+          source={require('../assets/petitpaslogo.jpg')}
           style={styles.logo}
         />
-        <Text style={styles.title}>PetitPas</Text>
+        <Text style={styles.title}>Petit Pas</Text>
         <Text style={styles.subtitle}>Organise ta journée ✨</Text>
       </View>
       <DrawerItemList {...props} />
@@ -50,19 +49,7 @@ export default function AppNavigator() {
           component={WelcomeScreen}
           options={{
             title: 'Accueil',
-            drawerIcon: ({ color, size }) => (
-              <Icon name="home" color={color} size={size} />
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="Auth"
-          component={AuthStackNavigator}
-          options={{
-            title: 'Connexion',
-            drawerIcon: ({ color, size }) => (
-              <Icon name="login" color={color} size={size} />
-            ),
+            drawerIcon: ({ color, size }) => <Icon name="home" color={color} size={size} />,
           }}
         />
         <Drawer.Screen
@@ -70,9 +57,7 @@ export default function AppNavigator() {
           component={ProfileScreen}
           options={{
             title: 'Mon Profil',
-            drawerIcon: ({ color, size }) => (
-              <Icon name="account-circle-outline" color={color} size={size} />
-            ),
+            drawerIcon: ({ color, size }) => <Icon name="account-circle-outline" color={color} size={size} />,
           }}
         />
         <Drawer.Screen
@@ -80,9 +65,7 @@ export default function AppNavigator() {
           component={AboutScreen}
           options={{
             title: 'À propos',
-            drawerIcon: ({ color, size }) => (
-              <Icon name="information-outline" color={color} size={size} />
-            ),
+            drawerIcon: ({ color, size }) => <Icon name="information-outline" color={color} size={size} />,
           }}
         />
         <Drawer.Screen
@@ -90,9 +73,7 @@ export default function AppNavigator() {
           component={ContactScreen}
           options={{
             title: 'Contact',
-            drawerIcon: ({ color, size }) => (
-              <Icon name="email-outline" color={color} size={size} />
-            ),
+            drawerIcon: ({ color, size }) => <Icon name="email-outline" color={color} size={size} />,
           }}
         />
       </Drawer.Navigator>
@@ -102,32 +83,29 @@ export default function AppNavigator() {
 
 
 const styles = StyleSheet.create({
-  drawerContainer: {
-    flex: 1,
-    backgroundColor: '#FFE4F2',
+  drawerContainer: { flex: 1, backgroundColor: '#FFE4F2' },
+  header: { 
+    alignItems: 'center', 
+    paddingVertical: 30, 
+    backgroundColor: '#FFF', 
+    borderBottomLeftRadius: 30, 
+    borderBottomRightRadius: 30, 
+    marginBottom: 10 
   },
-  header: {
-    alignItems: 'center',
-    paddingVertical: 30,
-    backgroundColor: '#FFF',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
-    marginBottom: 10,
+  logo: { 
+    width: 90, 
+    height: 90, 
+    marginBottom: 10, 
+    borderRadius: 39,
   },
-  logo: {
-    width: 80,
-    height: 80,
-    marginBottom: 10,
+  title: { 
+    fontSize: 22, 
+    fontWeight: 'bold', 
+    color: '#D16BA5'
   },
-  title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#D16BA5',
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#555',
+  subtitle: { 
+    fontSize: 14, 
+    color: '#555' 
   },
 });
-
 
